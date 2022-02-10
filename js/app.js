@@ -1,63 +1,51 @@
 const dom = {
-  addForm: document.getElementById('addForm'),
-  todoList: document.getElementById('todoList'),
-};
-let todos = [
-  {
-    title: 'title 1',
-    completed: false,
-  },
-  {
-    title: 'title 2',
-    completed: false,
-  },
-];
-
-dom.addForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const title = e.target.title.value;
-  const newTodo = {
-    title,
-    completed: false,
-  };
-  console.log(newTodo);
-  e.target.reset();
-});
-
-function createTodo(todo) {
-    return `<li class="todo">
-    <p>${todo.title}</p>
-    <button class="todo-btn" data-action="del">Delete</button>
-</li>`
+  formTodo: document.getElementById('form-todo'),
+  todoList: document.getElementById('todo-list'),
 }
 
+const todos = [
+  {
+    title: 'Explore and Travel',
+    completed: false
+  },
+  {
+    title: 'A new way to explore the world ',
+    completed: false
+  },
+  {
+    title: 'Guides by Thousand Sunny',
+    completed: false
+  }
+]
+
+dom.formTodo.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const inputValue = e.target.title.value;
+  const newTodo = {
+    title: inputValue,
+    completed: false
+  };
+  console.log(newTodo)
+  e.target.reset();
+})
+
+function createTodo(todo) {
+  return `
+      <li class="todo__item todo-item">
+          <p>${todo.title}</p>
+          <button class="btn btn--cancel">
+              <img src="./img/cancel-icon.svg" class="img-cancel" alt="Delete" width="1" height="1">
+          </button>
+      </li>
+  `
+} 
+
 function createTodosHTML(todos) {
-  return todos.map((todo) => createTodo(todo)).join('');
+  return todos.map(todo => createTodo(todo)).join('')
 }
 
 function renderTodos(todos, todoList) {
-  todoList.innerHTML = createTodosHTML(todos);
+  todoList.innerHTml = createTodosHTML(todos)
 }
-renderTodos(todos, dom.todoList);
 
-// const x = 100
-// const y = 200
-// const w = 10
-// const h = 3
-
-// function buildFoundation(){}
-// function buildWalls(){}
-// function buildRoof(){}
-
-// function buildHouse(x,y,w,h) {
-//     const foundation = buildFoundation(x,y,w,h)
-//     const walls = buildWalls(x,y,w,h)
-//     const roof = buildRoof(x,y,w,h)
-//     return foundation + walls + roof
-// }
-
-// buildHouse(x,y,w,h)
-
-
-
-boilWater()
+renderTodos(todos, dom.todoList)
