@@ -38,7 +38,7 @@ function createTodo(todo) {
           </button>
       </li>
   `
-} 
+}
 
 function createTodosHTML(todos) {
   return todos.map(todo => createTodo(todo)).join('')

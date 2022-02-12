@@ -241,7 +241,7 @@ a {
     align-items: center;
 }
 
-.todo__utem:first-child {
+.todo__item:first-child {
     margin-top: 0;
 }
 
