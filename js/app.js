@@ -1,51 +1,98 @@
 const dom = {
-  formTodo: document.getElementById('form-todo'),
-  todoList: document.getElementById('todo-list'),
+  formTodo: document.getElementById("form-todo"),
+  todoList: document.getElementById("todo-list"), 
 }
 
-const todos = [
-  {
-    title: 'Explore and Travel',
-    completed: false
-  },
-  {
-    title: 'A new way to explore the world ',
-    completed: false
-  },
-  {
-    title: 'Guides by Thousand Sunny',
-    completed: false
-  }
-]
+// const todos = [
+//   {
+//     title: 'Explore and Travel',
+//     completed: false
+//   },
+//   {
+//     title: 'A new way to explore the world ',
+//     completed: false
+//   },
+//   {
+//     title: 'Guides by Thousand Sunny',
+//     completed: false
+//   }
+// ]
 
 dom.formTodo.addEventListener('submit', (e) => {
-  e.preventDefault();
+  e.preventDefault()
   const inputValue = e.target.title.value;
-  const newTodo = {
+  let newTodo = {
     title: inputValue,
     completed: false
-  };
-  console.log(newTodo)
+  }
+  // fetchData('./data/data.json', 'POST', newTodo)
   e.target.reset();
 })
 
+dom.todoList.addEventListener('click', (e) => {
+  if(e.target.closest('.btn--cancel')) {
+    // fetchData('./data/dat.json', 'DELETE')
+  }
+})
+
+//вставити текст
 function createTodo(todo) {
   return `
-      <li class="todo__item todo-item">
-          <p>${todo.title}</p>
-          <button class="btn btn--cancel">
-              <img src="./img/cancel-icon.svg" class="img-cancel" alt="Delete" width="1" height="1">
-          </button>
-      </li>
+  <li class="todo__item todo-item">
+      <p>${todo.title}</p>
+      <button class="btn btn--cancel"">
+          <img src="./img/cancel-icon.svg" class="img-cancel" alt="Delete" width="1" height="1">
+      </button>
+  </li>
   `
 }
 
-function createTodosHTML(todos) {
-  return todos.map(todo => createTodo(todo)).join('')
+//розєднати туду
+function renderTodoHTML(todos) {
+  return todos.map(todo => createTodo(todo))
 }
 
+//вставити туду в список
 function renderTodos(todos, todoList) {
-  todoList.innerHTml = createTodosHTML(todos)
+  todoList.innerHTML = renderTodoHTML(todos)
 }
 
-renderTodos(todos, dom.todoList)
+async function fetchData(url, method = 'GET', data) {
+  try {
+    let response = await fetch(url, {
+      method,
+      body: data && JSON.stringify(data),
+      headers: {
+        "content-type": "application/json;charset=utf-8"
+      }
+    })
+    if(response.ok) {
+      let data = await response.json();
+      renderTodos(data, dom.todoList)
+    }
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
+fetchData('./data/data.json');
+
+// async function fetchData(url) {
+//   try {
+//     let response = await fetch(url)
+//     if(response.ok) {
+//       let data = await response.json();
+//       renderTodos(data, dom.todoList)
+//     } else {
+//       throw new Error
+//     }
+//   } catch (error) {
+//     console.warn(error)
+//   }
+// }
+// fetchData('./data/data.json')
+// fetch('./data/data.json')
+//   .then(response => response.json())
+//   .then(data => {
+//     renderTodos(data, dom.todoList)
+//   })
