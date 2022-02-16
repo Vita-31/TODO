@@ -98,7 +98,7 @@ body {
     font-weight: 400;
     font-style: normal;
     font-size: 16px;
-    line-height: 150%;
+    line-height: 100%;
     background-color: #62D0DF;
     color: #000;
     padding: 0;
@@ -136,7 +136,6 @@ a {
 .container--center {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     flex-direction: column;
 }
 
@@ -202,6 +201,9 @@ a {
     font-weight: 500;
     font-size: 20px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn--base {
@@ -212,16 +214,12 @@ a {
     transition: 0.4s;
 }
 
-.btn--base:hover {
-    background-color: #3d5cbb;
+.btn--icon {
+    padding: 0;
 }
 
-.btn--cancel {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn--base:hover {
+    background-color: #3d5cbb;
 }
 
 .todo__list {
@@ -244,8 +242,18 @@ a {
 .todo__item:first-child {
     margin-top: 0;
 }
+.todo-item--completed{
+    text-decoration: line-through;
+}
 
-.img-cancel {
-    width: 25px;
-    height: 25px;
+.todo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0 20px
+}
+
+.btn-img {
+    width: 30px;
+    height: 30px;
 }
