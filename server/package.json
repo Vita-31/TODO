@@ -1,0 +1,16 @@
+{
+  "name": "todos-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm i && npm run serve",
+    "serve": "json-server -w db.json -p 1234"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
+}

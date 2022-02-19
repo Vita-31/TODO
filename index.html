@@ -14,7 +14,7 @@
                 <h1 class="title">To Do</h1>
                 <div class="todo__wrapper">
                     <form action="" id="form-todo" class="todo__form add-todo">
-                        <input type="text" name="title" class="input" placeholder="Add your TODO">
+                        <input type="text" name="title" class="input" placeholder="Add your TODO" required>
                         <button class="add-todo__btn btn btn--base" type="submit">Add</button>
                     </form>
                     <ul class="todo__list" id="todo-list">
@@ -24,16 +24,8 @@
             </div>
         </section>
     </main>
-    <!-- <form id="addForm" class="add-todo">
-        <input type="text" name="title">
-        <button type="submit">Add todo</button>
-    </form>
-    <ul class="todos" id="todoList">
-        <li class="todo">
-            <p>title</p>
-            <button class="todo-btn" data-action="del">Delete</button>
-        </li>
-    </ul> -->
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./js/app.js"></script>
 </body>
 </html>

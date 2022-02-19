@@ -3,54 +3,33 @@ const dom = {
   todoList: document.getElementById('todo-list'),
 };
 
-let todos = [
-  {
-    id: 1,
-    title: 'Explore and Travel',
-    completed: false,
-  },
-  {
-    id: 2,
-    title: 'A new way to explore the world ',
-    completed: true,
-  },
-  {
-    id: 3,
-    title: 'Guides by Thousand Sunny',
-    completed: false,
-  },
-];
+let todos = [];
 
-renderTodos(todos, dom.todoList)
+getTodos()
 
 dom.formTodo.addEventListener('submit', (e) => {
   e.preventDefault();
   const inputValue = e.target.title.value;
   const newTodo = {
     title: inputValue,
-    completed: false,
-    id: Date.now()
+    completed: false
   }
-  todos.push(newTodo)
-  renderTodos(todos, dom.todoList)
+  postTodo(newTodo)
   e.target.reset();
 })
 
 dom.todoList.addEventListener('click', (e) => {
+  e.preventDefault()
   const btnCancel = e.target.closest('.cancel');
   const btnComplete = e.target.closest('.complete');
   const todoId = Number(e.target.closest('.todo-item').dataset.id);
 
   if(btnCancel) {
-    todos = todos.filter((todo) => todo.id !== todoId)
+    deleteTodo(todoId)
   }
   if(btnComplete) {
-    const todoIdx = todos.findIndex((todo) => todo.id === todoId);
-    const todo = {...todos[todoIdx]};
-    todo.completed = true
-    todos.splice(todoIdx, 1, todo)
+    updateTodo(todoId, {completed: true})
   }
-  renderTodos(todos, dom.todoList)
 })
 
 function renderTodos(todos, todoList) {
@@ -77,4 +56,45 @@ function createTodoHTML(todo) {
       </div>
     </li>
   `
+}
+
+async function getTodos() {
+  try {
+    const response = await axios.get('http://localhost:1234/todos');
+    todos = response.data;
+    renderTodos(todos, dom.todoList)
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
+async function postTodo(newTodo) {
+  try {
+    const response = await axios.post('http://localhost:1234/todos', newTodo);
+    todos.push(response.data)
+    renderTodos(todos, dom.todoList)
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
+async function deleteTodo(id) {
+  try {
+    await axios.delete(`http://localhost:1234/todos/${id}`);
+    todos = todos.filter((todo) => todo.id !== id)
+    renderTodos(todos, dom.todoList)
+  } catch (error) {
+    console.warn(error)
+  }
+}
+
+async function updateTodo(id, updateData) {
+  try {
+    const response = await axios.patch(`http://localhost:1234/todos/${id}`, updateData);
+    const todoIdx = todos.findIndex((todo) => todo.id === id);
+    todos.splice(todoIdx, 1, response.data);
+    renderTodos(todos, dom.todoList);
+  } catch (error) {
+    console.warn(error)
+  }
 }
