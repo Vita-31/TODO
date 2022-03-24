@@ -60,7 +60,7 @@ function createTodoHTML(todo) {
 
 async function getTodos() {
   try {
-    const response = await axios.get('http://localhost:1234/todos');
+    const response = await axios.get('https://app-json3.herokuapp.com/todos');
     todos = response.data;
     renderTodos(todos, dom.todoList)
   } catch (error) {
@@ -70,7 +70,7 @@ async function getTodos() {
 
 async function postTodo(newTodo) {
   try {
-    const response = await axios.post('http://localhost:1234/todos', newTodo);
+    const response = await axios.post('https://app-json3.herokuapp.com/todos', newTodo);
     todos.push(response.data)
     renderTodos(todos, dom.todoList)
   } catch (error) {
@@ -80,7 +80,7 @@ async function postTodo(newTodo) {
 
 async function deleteTodo(id) {
   try {
-    await axios.delete(`http://localhost:1234/todos/${id}`);
+    await axios.delete(`https://app-json3.herokuapp.com/todos/${id}`);
     todos = todos.filter((todo) => todo.id !== id)
     renderTodos(todos, dom.todoList)
   } catch (error) {
@@ -90,7 +90,7 @@ async function deleteTodo(id) {
 
 async function updateTodo(id, updateData) {
   try {
-    const response = await axios.patch(`http://localhost:1234/todos/${id}`, updateData);
+    const response = await axios.patch(`https://app-json3.herokuapp.com/todos/${id}`, updateData);
     const todoIdx = todos.findIndex((todo) => todo.id === id);
     todos.splice(todoIdx, 1, response.data);
     renderTodos(todos, dom.todoList);
