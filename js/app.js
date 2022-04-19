@@ -23,6 +23,7 @@ dom.todoList.addEventListener('click', (e) => {
   const btnCancel = e.target.closest('.cancel');
   const btnComplete = e.target.closest('.complete');
   const todoId = Number(e.target.closest('.todo-item').dataset.id);
+  console.log(todoId)
 
   if(btnCancel) {
     deleteTodo(todoId)
